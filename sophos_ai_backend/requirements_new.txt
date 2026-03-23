@@ -1,0 +1,32 @@
+# --- API ---
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.6.0,<3.0.0
+
+# --- RAG / LangChain ---
+langchain>=0.2.11
+langchain-core>=0.2.26
+langchain-community>=0.2.10
+langchain-qdrant>=0.1.1
+langchain-huggingface>=0.1.0
+langchain-ollama>=0.1.0
+
+# --- Vector DB ---
+qdrant-client>=1.9.0
+
+# --- Models / Embeddings / Reranker ---
+transformers>=4.41.0
+torch>=2.2.0          # pick CPU or CUDA build for your box
+accelerate>=0.30.0
+sentence-transformers>=2.7.0
+
+# --- Document loaders (PDF, Word, Excel via Unstructured) ---
+unstructured>=0.14.0
+unstructured-inference>=0.7.0
+pillow>=10.0.0
+pypdf>=4.2.0          # for PyPDFLoader used in PDF path
+
+# --- Utilities ---
+python-dotenv>=1.0.1
+requests>=2.31.0
+

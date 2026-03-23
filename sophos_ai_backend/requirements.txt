@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+pydantic
+python-dotenv
+requests
+torch
+transformers
+langchain-community
+langchain-core
+langchain-qdrant
+langchain-openai
+langchain-ollama
+qdrant-client
+unstructured[all-docs]
+sentence-transformers
+accelerate
