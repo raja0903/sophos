@@ -21,7 +21,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_qdrant import Qdrant
 from langchain_ollama import OllamaLLM as Ollama
-from langchain_classic.chains import RetrievalQA
+from langchain.chains import RetrievalQA
 from langchain_core.documents import Document
 from langchain_core.prompts import PromptTemplate
 from langchain_core.retrievers import BaseRetriever
@@ -334,7 +334,7 @@ class QdrantVectorManager:
         # Create a LangChain Qdrant vectorstore instance for easier interaction.
         self.vectorstore = Qdrant(
             client=self.qdrant_client, collection_name=self.collection_name,
-            embeddings=self.embeddings
+            embeddings=self.embeddings, vector_name="dense"
         )
     def add_documents(self, documents: List[Document]):
         """Adds a batch of documents to the Qdrant collection."""

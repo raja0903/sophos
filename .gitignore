@@ -21,3 +21,12 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# Docker
+.env
+docker-compose.yml.bck
+
+# Archives
+*.zip
+
+# Test files
+test.txt

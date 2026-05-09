@@ -1,16 +1,59 @@
-fastapi
-uvicorn[standard]
-pydantic
-python-dotenv
-requests
-torch
-transformers
-langchain-community
-langchain-core
-langchain-qdrant
-langchain-openai
-langchain-ollama
-qdrant-client
-unstructured[all-docs]
-sentence-transformers
-accelerate
+# =========================
+# FastAPI Backend
+# =========================
+fastapi==0.116.1
+python-multipart==0.0.20
+uvicorn[standard]==0.35.0
+pydantic==2.11.7
+python-dotenv==1.1.1
+requests==2.32.4
+
+# =========================
+# LangChain Ecosystem
+# =========================
+langchain==0.3.27
+langchain-core==0.3.74
+langchain-community==0.3.27
+langchain-qdrant==0.2.0
+langchain-openai==0.3.30
+langchain-ollama==0.3.6
+langchain-huggingface==0.3.1
+
+# =========================
+# Vector Database
+# =========================
+qdrant-client==1.15.1
+
+# =========================
+# ML / Embeddings / Reranker
+# =========================
+torch==2.7.1
+transformers==4.55.2
+sentence-transformers==5.1.0
+accelerate==1.10.1
+huggingface-hub==0.34.4
+
+# =========================
+# Document Processing
+# =========================
+unstructured==0.18.14
+pypdf==6.0.0
+python-docx==1.2.0
+openpyxl==3.1.5
+beautifulsoup4==4.13.4
+lxml==6.0.0
+markdown==3.8.2
+
+# =========================
+# Utilities
+# =========================
+numpy==2.3.2
+pandas==2.3.1
+scikit-learn==1.7.1
+
+# =========================
+# Optional Logging / Retry
+# =========================
+tenacity==9.1.2
+loguru==0.7.3
+sentencepiece==0.2.1
