@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Create .env file
         run: |
@@ -27,15 +29,22 @@ jobs:
       - name: Check changed files
         id: changes
         run: |
-          git diff --name-only HEAD~1 HEAD > /tmp/changed_files.txt
+          if git rev-parse HEAD~1 > /dev/null 2>&1; then
+            echo "Normal commit - diffing with previous"
+            git diff --name-only HEAD~1 HEAD > /tmp/changed_files.txt
+          else
+            echo "First commit - treating all files as changed"
+            git diff-tree --no-commit-id -r --name-only HEAD > /tmp/changed_files.txt
+          fi
+
           cat /tmp/changed_files.txt
-          
+
           if grep -qE "^sophos_ai_backend/" /tmp/changed_files.txt; then
             echo "backend=true" >> $GITHUB_OUTPUT
           else
             echo "backend=false" >> $GITHUB_OUTPUT
           fi
-          
+
           if grep -qE "^sophos-ai-frontend/" /tmp/changed_files.txt; then
             echo "frontend=true" >> $GITHUB_OUTPUT
           else
