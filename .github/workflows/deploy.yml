@@ -14,10 +14,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Create .env file
+        run: |
+          cat > $GITHUB_WORKSPACE/.env << ENVEOF
+          OLLAMA_BASE_URL=${{ secrets.OLLAMA_BASE_URL }}
+          OLLAMA_MODEL=${{ secrets.OLLAMA_MODEL }}
+          QDRANT_API_KEY=
+          TEAMS_WEBHOOK_URL=
+          REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}
+          ENVEOF
+
       - name: Build Docker images
         run: |
           cd $GITHUB_WORKSPACE
           docker compose build
+
+      - name: Stop old containers
+        run: |
+          cd $GITHUB_WORKSPACE
+          docker compose down
 
       - name: Deploy
         run: |
