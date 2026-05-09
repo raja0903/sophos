@@ -1,0 +1,31 @@
+name: Build and Deploy Sophos AI
+
+on:
+  push:
+    branches:
+      - master
+      - feature/dockerization
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker images
+        run: |
+          cd $GITHUB_WORKSPACE
+          docker compose build
+
+      - name: Deploy
+        run: |
+          cd $GITHUB_WORKSPACE
+          docker compose up -d
+
+      - name: Verify deployment
+        run: |
+          sleep 15
+          curl -f http://localhost:8000/ || exit 1
+          echo "Deployment successful!"
