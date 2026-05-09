@@ -24,10 +24,35 @@ jobs:
           REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}
           ENVEOF
 
-      - name: Build Docker images
+      - name: Check changed files
+        id: changes
+        run: |
+          git diff --name-only HEAD~1 HEAD > /tmp/changed_files.txt
+          cat /tmp/changed_files.txt
+          
+          if grep -qE "^sophos_ai_backend/" /tmp/changed_files.txt; then
+            echo "backend=true" >> $GITHUB_OUTPUT
+          else
+            echo "backend=false" >> $GITHUB_OUTPUT
+          fi
+          
+          if grep -qE "^sophos-ai-frontend/" /tmp/changed_files.txt; then
+            echo "frontend=true" >> $GITHUB_OUTPUT
+          else
+            echo "frontend=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build backend image
+        if: steps.changes.outputs.backend == 'true'
         run: |
           cd $GITHUB_WORKSPACE
-          docker compose build
+          docker compose build backend
+
+      - name: Build frontend image
+        if: steps.changes.outputs.frontend == 'true'
+        run: |
+          cd $GITHUB_WORKSPACE
+          docker compose build frontend
 
       - name: Stop old containers
         run: |
@@ -41,6 +66,14 @@ jobs:
 
       - name: Verify deployment
         run: |
-          sleep 15
-          curl -f http://localhost:8000/ || exit 1
-          echo "Deployment successful!"
+          echo "Waiting for backend to be ready..."
+          for i in {1..10}; do
+            if curl -sf http://localhost:8000/; then
+              echo "Backend is up!"
+              exit 0
+            fi
+            echo "Attempt $i failed, waiting 15s..."
+            sleep 15
+          done
+          echo "Backend failed to start"
+          exit 1
