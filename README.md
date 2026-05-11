@@ -241,9 +241,7 @@ images/ui.png
 
 Then use:
 
-```md
 ![Sophos AI UI](images/ui.png)
-```
 
 ---
 
