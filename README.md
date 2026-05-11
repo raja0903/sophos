@@ -20,7 +20,7 @@ A sophisticated Retrieval-Augmented Generation (RAG) system designed to answer q
 #### Backend
 - **FastAPI**: Modern, fast web framework for building APIs
 - **Qdrant**: Vector database for storing document embeddings
-- **Ollama**: Local LLM deployment (qwen3:1.7b)
+- **Ollama**: Local LLM deployment (llama3.2:3b)
 - **LangChain**: Framework for building LLM applications
 - **Transformers**: Hugging Face for ML model management
 - **SQLite**: Lightweight database for user management
